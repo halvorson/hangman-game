@@ -40,7 +40,6 @@ function chooseWordOnline(callback) {
 	};
 	request.open("GET", "http://setgetgo.com/randomword/get.php" , true);
 	request.send(null);
-	return newWord; 
 }
 
 function newGame() {
@@ -53,27 +52,28 @@ function newGame() {
 	guessWord = chooseWord(); 
 	updatePictureFromRemainingLetters();
 	// Offline version
-	letters = guessWord.split(''); 
-	console.log("_______________NEW GAME_______________");
-	for (var i=0; i<letters.length; i++) {
-		//console.log(letters[i]);
-		currentWordArray[i] = "_";
-		remainingLetters++;
-	}
-	document.getElementById("guessBox").innerHTML = arrayToString(currentWordArray);
-	document.getElementById("messageBox").innerHTML = 'New word up! Take a guess!';
+	// letters = guessWord.split(''); 
+	// console.log("_______________NEW GAME_______________");
+	// for (var i=0; i<letters.length; i++) {
+	// 	//console.log(letters[i]);
+	// 	currentWordArray[i] = "_";
+	// 	remainingLetters++;
+	// }
+	// document.getElementById("guessBox").innerHTML = arrayToString(currentWordArray);
+	// document.getElementById("messageBox").innerHTML = 'New word up! Take a guess!';
 
 	//Online version using a callback (let's see if this guy goes)
-	// chooseWordOnline(function(result) {
-	// 	guessWord = result;	
-	// 	letters = guessWord.split(''); 
-	// 	for (var i=0; i<letters.length; i++) {
-	// 		currentWordArray[i] = "_";
-	// 		remainingLetters++;
-	// 	}
-	// 	document.getElementById("guessBox").innerHTML = arrayToString(currentWordArray);
-	// 	document.getElementById("messageBox").innerHTML = 'New word up! Take a guess!';
-	// });
+	chooseWordOnline(function(result) {
+		guessWord = result;	
+		letters = guessWord.split(''); 
+		remainingLetters=0;
+		for (var i=0; i<letters.length; i++) {
+			currentWordArray[i] = "_";
+			remainingLetters++;
+		}
+		document.getElementById("guessBox").innerHTML = arrayToString(currentWordArray);
+		document.getElementById("messageBox").innerHTML = 'New word up! Take a guess!';
+	});
 
 	gameInPlay = true;
 }
@@ -159,6 +159,7 @@ function inputLetter(letter) {
 
 function updatePictureFromRemainingLetters() {
 	var innerHTML = "";
+	//I originally was going to use a switch, but realized I was just going to increment by 1
 	innerHTML = "<img src='assets/images/Hangman-"+(6-remainingGuesses)+".png'>"
 	document.getElementById("hangmanBox").innerHTML = innerHTML;
 }
