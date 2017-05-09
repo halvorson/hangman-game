@@ -6,10 +6,6 @@ var remainingLetters = 0;
 var arrayLetters = [['a',false],['b',false],['c',false],['d',false],['e',false],['f',false],['g',false],['h',false],['j',false],['k',false],['i',false],['l',false],['m',false],['n',false],['o',false],['p',false],['q',false],['r',false],['s',false],['t',false],['u',false],['v',false],['w',false],['x',false],['y',false],['z',false]];
 var winCounter = 0;
 
-function runme() {
-	
-}
-
 function arrayToString(array) {
 	var str = "";
 	for (var i = 0; i<array.length; i++) {
@@ -52,28 +48,28 @@ function newGame() {
 	guessWord = chooseWord(); 
 	updatePictureFromRemainingLetters();
 	// Offline version
-	// letters = guessWord.split(''); 
-	// console.log("_______________NEW GAME_______________");
-	// for (var i=0; i<letters.length; i++) {
-	// 	//console.log(letters[i]);
-	// 	currentWordArray[i] = "_";
-	// 	remainingLetters++;
-	// }
-	// document.getElementById("guessBox").innerHTML = arrayToString(currentWordArray);
-	// document.getElementById("messageBox").innerHTML = 'New word up! Take a guess!';
+	letters = guessWord.split(''); 
+	console.log("_______________NEW GAME_______________");
+	for (var i=0; i<letters.length; i++) {
+		//console.log(letters[i]);
+		currentWordArray[i] = "_";
+		remainingLetters++;
+	}
+	document.getElementById("guessBox").innerHTML = arrayToString(currentWordArray);
+	document.getElementById("messageBox").innerHTML = 'New word up! Take a guess!';
 
 	//Online version using a callback (let's see if this guy goes)
-	chooseWordOnline(function(result) {
-		guessWord = result;	
-		letters = guessWord.split(''); 
-		remainingLetters=0;
-		for (var i=0; i<letters.length; i++) {
-			currentWordArray[i] = "_";
-			remainingLetters++;
-		}
-		document.getElementById("guessBox").innerHTML = arrayToString(currentWordArray);
-		document.getElementById("messageBox").innerHTML = 'New word up! Take a guess!';
-	});
+	// chooseWordOnline(function(result) {
+	// 	guessWord = result;	
+	// 	letters = guessWord.split(''); 
+	// 	remainingLetters=0;
+	// 	for (var i=0; i<letters.length; i++) {
+	// 		currentWordArray[i] = "_";
+	// 		remainingLetters++;
+	// 	}
+	// 	document.getElementById("guessBox").innerHTML = arrayToString(currentWordArray);
+	// 	document.getElementById("messageBox").innerHTML = 'New word up! Take a guess!';
+	// });
 
 	gameInPlay = true;
 }
