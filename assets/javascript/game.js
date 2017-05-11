@@ -81,6 +81,7 @@ function newGame() {
 	arrayLetters = [['a',false],['b',false],['c',false],['d',false],['e',false],['f',false],['g',false],['h',false],['j',false],['k',false],['i',false],['l',false],['m',false],['n',false],['o',false],['p',false],['q',false],['r',false],['s',false],['t',false],['u',false],['v',false],['w',false],['x',false],['y',false],['z',false]];
 	remainingGuesses = 6;
 	currentWordArray = [];
+	reminingLetters = 0;
 	//reset board on RHS of DOM
 	updateStrikeThrough();
 	guessWord = chooseWord(); 
