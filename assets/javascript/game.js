@@ -17,7 +17,8 @@ function arrayToString(array) {
 
 function chooseWord() {
 	var wordArray= ['dolphin', 'horse', 'dragons', 'chickens', 'browser', 'events', 'resorted', 'frequently', 'kitchens', 'volunteers', 'pitying', 'children', 'corralled', 'teachers', 'coping', 'barely', 'apartment', 'evaded', 'landlord', 'mother', 'artisan', 'pediment', 'plater', 'populated', 'around', 'embodied', 'underneath', 'magined', 'youth', 'extreme', 'anatomy', 'gambler'];
-	if (wordList.length == 0) {
+	//if clause checks to see if the wordlist has been loaded properly. It will probably not load properly.
+	if (wordList.length < 1000) {
 		return wordArray[Math.floor(Math.random() * wordArray.length)];
 	} else {
 		return wordList[Math.floor(Math.random() * wordList.length)];
@@ -43,6 +44,7 @@ function chooseWordOnline(callback) {
 	request.send(null);
 }
 
+//should load the word dictionary into wordList
 function onLoad() {
 	getWordDictionary(function(result) {
 		wordList = result.split('\n');	
@@ -50,6 +52,9 @@ function onLoad() {
 	});
 }
 
+//This has to be published to work, as it doesn't like "file://" comments
+//Word list has only 5 or more letters, no words that had capital letters in them (proper nouns)
+//taken from here: https://github.com/dwyl/english-words 
 function getWordDictionary(callback) {
 {
     var rawFile = new XMLHttpRequest();
