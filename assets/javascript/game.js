@@ -5,6 +5,7 @@ var remainingGuesses = 6;
 var remainingLetters = 0;
 var arrayLetters = [['a',false],['b',false],['c',false],['d',false],['e',false],['f',false],['g',false],['h',false],['j',false],['k',false],['i',false],['l',false],['m',false],['n',false],['o',false],['p',false],['q',false],['r',false],['s',false],['t',false],['u',false],['v',false],['w',false],['x',false],['y',false],['z',false]];
 var winCounter = 0;
+var wordList = [];
 
 function arrayToString(array) {
 	var str = "";
@@ -16,7 +17,11 @@ function arrayToString(array) {
 
 function chooseWord() {
 	var wordArray= ['dolphin', 'horse', 'dragons', 'chickens', 'browser', 'events', 'resorted', 'frequently', 'kitchens', 'volunteers', 'pitying', 'children', 'corralled', 'teachers', 'coping', 'barely', 'apartment', 'evaded', 'landlord', 'mother', 'artisan', 'pediment', 'plater', 'populated', 'around', 'embodied', 'underneath', 'magined', 'youth', 'extreme', 'anatomy', 'gambler'];
-	return wordArray[Math.floor(Math.random() * wordArray.length)];
+	if (wordList.length == 0) {
+		return wordArray[Math.floor(Math.random() * wordArray.length)];
+	} else {
+		return wordList[Math.floor(Math.random() * wordList.length)];
+	}
 }
 
 function chooseWordOnline(callback) {
@@ -37,6 +42,34 @@ function chooseWordOnline(callback) {
 	request.open("GET", "http://setgetgo.com/randomword/get.php" , true);
 	request.send(null);
 }
+
+function onLoad() {
+	getWordDictionary(function(result) {
+		wordList = result.split('\n');	
+		console.log(wordList.length);
+	});
+}
+
+function getWordDictionary(callback) {
+{
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", "assets/words2.txt", true);
+    rawFile.onreadystatechange = function ()
+    {
+        if(rawFile.readyState === 4)
+        {
+            if(rawFile.status === 200 || rawFile.status == 0)
+            {
+                var allText = rawFile.responseText;
+                callback(allText);
+            }
+        }
+    }
+    rawFile.send(null);
+}
+}
+
+
 
 function newGame() {
 	//reset arrayletters (guess history) and score

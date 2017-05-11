@@ -92,17 +92,16 @@
 		</div>
 	</section>
 	<script>
-		/*document.onkeyup = function(event) {
-			inputLetter(event.key);
-		};*/
+	
+		onLoad();
+		//Kills random letter presses
 		document.onkeypress = function(evt) {
 			evt = evt || window.event;
 			var charCode = evt.keyCode || evt.which;
 			var charStr = String.fromCharCode(charCode);
 			inputLetter(charStr);
 		};
-		//newGame();
-		chooseWord();
+
 	</script>
 </body>
 </html>
